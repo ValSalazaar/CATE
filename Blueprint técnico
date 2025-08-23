@@ -1,0 +1,88 @@
+## **Blueprint técnico de CATE – MVP**
+
+### **Capa 1 – Presentación (Frontend)**
+**Tecnologías:** React + Next.js (PWA, mobile-first, multilenguaje)  
+**Componentes:**
+- **Landing Page** → información, registro, demo interactiva  
+- **Onboarding** → registro, KYC, selección de rol  
+- **Dashboard Talento** → credenciales, wallet, vacantes  
+- **Dashboard Empresa** → búsqueda de talento, gestión de pagos, métricas  
+- **Panel ONG/Admin** → validaciones, reportes, becas  
+**Conexiones:**  
+- API REST (HTTPS) al backend  
+- Web3Modal → conexión de wallet  
+- i18n → soporte multilenguaje
+
+---
+
+### **Capa 2 – Lógica de Negocio (Backend)**
+**Tecnologías:** Node.js + Express  
+**Microservicios:**
+1. **Auth Service** → JWT + OAuth2, roles y permisos  
+2. **Credential Service** → carga, validación, emisión de Verifiable Credentials (VC)  
+3. **Matching Service** → motor de búsqueda y recomendación (IA ligera)  
+4. **Payment Service** → integración con stablecoins y rampas fiat  
+5. **Notification Service** → WebSocket + Email/SMS (SendGrid/Twilio)  
+6. **Admin Service** → métricas, reportes, gestión de usuarios
+
+---
+
+### **Capa 3 – Blockchain Layer**
+**Tecnologías:**  
+- **Polygon ID** → emisión y verificación de credenciales  
+- **Solidity Smart Contracts** → acuerdos laborales y pagos condicionados  
+- **Stablecoins (USDC/cUSD)** → pagos y remesas  
+**Flujos:**  
+- Backend firma y publica VC en blockchain  
+- Smart contract libera pago al cumplir hitos  
+- Wallet del usuario recibe fondos y puede convertir a fiat
+
+---
+
+### **Capa 4 – Datos**
+**Bases de datos:**
+- **PostgreSQL** → usuarios, credenciales, transacciones, planes  
+- **MongoDB** → perfiles dinámicos, logs, historial de validaciones  
+- **AWS S3** → almacenamiento seguro de documentos  
+**Seguridad:**  
+- Encriptación en reposo (AES-256) y en tránsito (TLS 1.3)  
+- Backups automáticos y redundancia geográfica
+
+---
+
+### **Capa 5 – Infraestructura**
+**Servicios:**
+- **AWS EC2** → backend  
+- **AWS RDS** → PostgreSQL  
+- **AWS S3** → documentos  
+- **AWS CloudFront** → CDN  
+- **Vercel** → frontend  
+- **GitHub Actions** → CI/CD automatizado  
+**Entornos:**  
+- Dev → pruebas internas  
+- Staging → QA y demos  
+- Prod → usuarios reales
+
+---
+
+## **Flujos clave**
+1. **Registro y KYC**  
+   Usuario → Frontend → Auth Service → KYC Provider → Base de datos  
+2. **Validación de credenciales**  
+   Usuario → Credential Service → API universidades → Emisión VC en Polygon  
+3. **Pago y remesas**  
+   Empresa → Payment Service → Smart Contract → Wallet usuario → Cash-out  
+4. **Matching**  
+   Empresa publica vacante → Matching Service → Talento recibe notificación
+
+---
+
+## **Backlog inmediato**
+**Sprint 1:** Infraestructura y Auth  
+**Sprint 2:** Credenciales y VC  
+**Sprint 3:** Wallet y pagos  
+**Sprint 4:** Matching  
+**Sprint 5:** Paneles y métricas  
+**Sprint 6:** QA y Beta cerrada
+
+---
