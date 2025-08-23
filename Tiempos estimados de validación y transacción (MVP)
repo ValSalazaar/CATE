@@ -1,0 +1,65 @@
+Tiempos estimados de validación y transacción (MVP)
+
+1. Captura de documento y selfie
+
+- OCR y extracción de datos: 1.5 – 2 seg
+
+- Comparación biométrica: 1 – 1.5 seg
+
+Total paso: ~3.5 seg
+
+2. Validación KYC/KYB con proveedor externo
+
+- Consulta API y respuesta: 2 – 4 seg
+
+- Manejo de errores/reintentos: +1 seg (solo si falla)
+
+Total paso: ~3 – 5 seg
+
+3. Emisión de credencial verificable (VC)
+
+-Generación de VC: 1 seg
+
+-Registro hash en blockchain (testnet): 3 – 5 seg
+
+Total paso: ~4 – 6 seg
+
+4. Verificación de credencial existente
+
+- Consulta blockchain + validación local: 2 – 3 seg
+
+- Activación de wallet
+
+- Creación de cuenta multi‑moneda: 1 – 2 seg
+
+- Vinculación bancaria vía API: 3 – 5 seg
+
+Total paso: ~4 – 7 seg
+
+5. Transacción de pago o envío
+
+- Validación de saldo y credencial: 1 seg
+
+- Procesamiento en procesador de pagos: 2 – 4 seg
+
+- Confirmación y registro: 1 seg
+
+Total paso: ~4 – 6 seg
+
+6. Operación FX (conversión de divisas)
+
+- Consulta de tipo de cambio en tiempo real: 0.5 – 1 seg
+
+- Ejecución de conversión: 2 – 3 seg
+
+Total paso: ~2.5 – 4 seg
+
+7. Generación de insights en app
+
+-Procesamiento local + IA contextual: 1 – 2 seg
+
+-Renderizado en interfaz: <1 seg
+
+Total paso: ~2 – 3 seg
+
+Tiempo total estimado de onboarding completo (Talent + Pay): ~20 – 28 segundos en condiciones óptimas de red y sin errores. Esto es clave para que la experiencia se perciba ágil y de alto nivel tecnológico.
