@@ -1,0 +1,141 @@
+## Backend – Endpoint `/auth/register` (Node.js + Express)
+**`src/routes/auth.js`**
+```js
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const router = express.Router();
+const { Pool } = require('pg');
+
+const pool = new Pool(); // Usa variables de entorno para conexión
+
+router.post('/register', async (req, res) => {
+  const { email, password, name } = req.body;
+  if (!email || !password || !name) {
+    return res.status(400).json({ error: 'Faltan campos' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const result = await pool.query(
+      'INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING id, email, name',
+      [email, hashedPassword, name]
+    );
+
+    const token = jwt.sign({ id: result.rows[0].id }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    });
+
+    res.json({ user: result.rows[0], token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error en el registro' });
+  }
+});
+
+module.exports = router;
+```
+**`src/index.js`**
+```js
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.use('/auth', require('./routes/auth'));
+
+app.listen(4000, () => console.log('Backend en http://localhost:4000'));
+```
+
+---
+
+## 2️⃣ Frontend – Hook para conexión de wallet (React + Web3Modal)
+**`hooks/useWallet.js`**
+```js
+import { useState } from 'react';
+import { ethers } from 'ethers';
+import Web3Modal from 'web3modal';
+
+export default function useWallet() {
+  const [address, setAddress] = useState(null);
+
+  const connectWallet = async () => {
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.BrowserProvider(connection);
+      const signer = await provider.getSigner();
+      const addr = await signer.getAddress();
+      setAddress(addr);
+    } catch (err) {
+      console.error('Error conectando wallet', err);
+    }
+  };
+
+  return { address, connectWallet };
+}
+```
+**Ejemplo de uso en `pages/index.js`**
+```js
+import useWallet from '../hooks/useWallet';
+
+export default function Home() {
+  const { address, connectWallet } = useWallet();
+
+  return (
+    <div>
+      <h1>Bienvenida a CATE</h1>
+      {address ? (
+        <p>Wallet conectada: {address}</p>
+      ) : (
+        <button onClick={connectWallet}>Conectar Wallet</button>
+      )}
+    </div>
+  );
+}
+```
+
+---
+
+## 3️⃣ Smart Contract – `CatePayments.sol` (Solidity + Hardhat)
+**`contracts/CatePayments.sol`**
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
+contract CatePayments {
+    address public owner;
+    IERC20 public stablecoin;
+
+    event PaymentSent(address indexed from, address indexed to, uint256 amount);
+
+    constructor(address _stablecoin) {
+        owner = msg.sender;
+        stablecoin = IERC20(_stablecoin);
+    }
+
+    function sendPayment(address to, uint256 amount) external {
+        require(stablecoin.transferFrom(msg.sender, to, amount), "Transfer failed");
+        emit PaymentSent(msg.sender, to, amount);
+    }
+}
+```
+**Despliegue rápido en `scripts/deploy.js`**
+```js
+async function main() {
+  const CatePayments = await ethers.getContractFactory("CatePayments");
+  const contract = await CatePayments.deploy("0x...direccionStablecoin");
+  await contract.deployed();
+  console.log("CatePayments desplegado en:", contract.address);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+```
