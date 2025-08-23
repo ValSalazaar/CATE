@@ -1,0 +1,58 @@
+MVP
+
+### 1. **Arquitectura inicial**
+- **Frontend:** React + Next.js (SSR para SEO y velocidad)  
+- **Backend:** Node.js + Express (API REST y WebSocket para notificaciones en tiempo real)  
+- **Base de datos:**  
+  - PostgreSQL → credenciales, usuarios, transacciones  
+  - MongoDB → perfiles dinámicos, logs, historial de validaciones  
+- **Blockchain:** Polygon ID para credenciales verificables + contratos en Solidity para pagos y acuerdos laborales  
+- **Infraestructura:** AWS (EC2, RDS, S3, Cognito) + Vercel para frontend  
+- **Integraciones:** Bitso/Transak para rampas fiat–cripto, APIs de universidades y certificadoras
+
+---
+
+### 2. **Módulos del MVP**
+1. **Registro y KYC**  
+   - Email, teléfono, verificación de identidad (proveedor KYC externo como Onfido o Sumsub)  
+   - Roles: talento, empresa, ONG, admin  
+
+2. **Gestión de credenciales**  
+   - Carga de documentos  
+   - Validación manual/automática vía API  
+   - Emisión de Verifiable Credentials en blockchain  
+
+3. **Wallet CATE Pay**  
+   - Recepción de pagos en stablecoins  
+   - Conversión opcional a moneda local  
+   - Historial de transacciones  
+
+4. **Matching básico**  
+   - Motor de búsqueda por competencias y ubicación  
+   - Panel para empresas con filtros  
+
+5. **Panel de administración**  
+   - Gestión de usuarios, credenciales, pagos y métricas  
+
+---
+
+### 3. **Roadmap de desarrollo**
+| Semana | Entregable | Detalles |
+|--------|------------|----------|
+| 1–2 | Configuración de repos, arquitectura y CI/CD | AWS, Vercel, base de datos |
+| 3–4 | Módulo de registro y KYC | Roles y autenticación |
+| 5–6 | Gestión de credenciales | Carga, validación y emisión VC |
+| 7–8 | Wallet CATE Pay | Integración con stablecoins y rampas |
+| 9–10 | Matching básico | Algoritmo inicial y panel empresas |
+| 11–12 | Panel admin + pruebas | QA, seguridad, optimización |
+| 13 | Lanzamiento beta cerrada | Feedback con usuarios reales |
+
+---
+
+### 4. **Próximos pasos inmediatos**
+1. Definir **stack final** y proveedores (KYC, blockchain, pagos).  
+2. Crear **wireframes en Figma** para todo el flujo.  
+3. Montar **repositorios y entorno de desarrollo**.  
+4. Iniciar con el **módulo de registro y credenciales** (núcleo del producto).  
+
+---
