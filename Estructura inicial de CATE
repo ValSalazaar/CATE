@@ -1,0 +1,80 @@
+1. Frontend – React + Next.js
+bash
+cate-frontend/
+├── pages/
+│   ├── index.js          # Landing
+│   ├── dashboard.js      # Panel principal
+│   └── api/              # Rutas API internas (Next.js)
+├── components/           # Componentes reutilizables
+├── styles/               # Estilos globales y módulos CSS
+├── public/               # Imágenes, íconos
+├── package.json
+└── next.config.js
+Dependencias clave:
+
+bash
+npm install next react react-dom axios web3modal ethers i18next
+npm install --save-dev eslint prettier
+Incluye:
+
+Configuración SSR para SEO.
+
+Soporte multilenguaje (i18next).
+
+Web3Modal para conexión de wallet.
+
+2. Backend – Node.js + Express
+bash
+cate-backend/
+├── src/
+│   ├── index.js          # Punto de entrada
+│   ├── routes/           # Endpoints (auth, credentials, payments, matching)
+│   ├── controllers/      # Lógica de negocio
+│   ├── models/           # Modelos PostgreSQL y MongoDB
+│   ├── services/         # Integraciones (KYC, Bitso, Polygon ID)
+│   └── utils/            # Helpers y middlewares
+├── package.json
+└── .env
+Dependencias clave:
+
+bash
+npm install express cors helmet dotenv jsonwebtoken bcryptjs
+npm install pg mongoose axios socket.io
+npm install --save-dev nodemon jest
+Incluye:
+
+Seguridad básica (Helmet, CORS, rate limiting).
+
+Conexión a PostgreSQL y MongoDB.
+
+WebSocket para notificaciones en tiempo real.
+
+3. Smart Contracts – Solidity
+bash
+cate-smart-contracts/
+├── contracts/
+│   ├── CatePayments.sol      # Pagos condicionados
+│   └── CateCredentials.sol   # Registro de credenciales
+├── scripts/                  # Scripts de despliegue
+├── test/                     # Pruebas
+├── hardhat.config.js
+└── package.json
+Dependencias clave:
+
+bash
+npm install --save-dev hardhat @nomiclabs/hardhat-ethers ethers
+npm install @openzeppelin/contracts
+Incluye:
+
+Contrato para pagos con stablecoins.
+
+Contrato para registrar/verificar credenciales.
+
+Configuración para testnet Mumbai (Polygon).
+
+🔗 Integración entre capas
+Frontend → consume API REST del backend (/auth, /credentials, /payments, /matching).
+
+Backend → interactúa con blockchain vía ethers.js y con Polygon ID para emitir/verificar credenciales.
+
+Smart Contracts → desplegados en testnet Mumbai, conectados al backend para operaciones seguras.
