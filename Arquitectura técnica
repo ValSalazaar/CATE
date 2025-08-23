@@ -74,3 +74,61 @@
 - [ ] Beta cerrada con usuarios reales  
 
 ---
+Estructura de repositorios
+Monorepo (recomendado con pnpm o yarn workspaces)
+Código
+/cate-app
+  /apps
+    /frontend        # React Native app
+    /backend         # Node.js/Express API
+  /packages
+    /ui              # Componentes UI compartidos
+    /utils           # Funciones utilitarias (formateo, validaciones, etc.)
+    /types           # Tipos TypeScript compartidos
+    /config          # Configuración común (env, constantes)
+  /docs              # Documentación técnica y de producto
+Frontend (/apps/frontend)
+Código
+/src
+  /assets           # Iconos, imágenes, fuentes
+  /components       # Componentes reutilizables (Botones, Inputs, Cards)
+  /screens          # Pantallas (Onboarding, Dashboard, Wallet, Talent, Skills)
+  /navigation       # Stack y Tab navigators
+  /hooks            # Hooks personalizados (useAuth, useFXRates)
+  /services         # Llamadas a API (authService, walletService)
+  /context          # Contextos globales (AuthContext, ThemeContext)
+  /theme            # Colores, tipografía, estilos globales
+  /utils            # Funciones de ayuda específicas del frontend
+  App.tsx
+⚙ Backend (/apps/backend)
+Código
+/src
+  /api
+    /routes         # Definición de rutas (auth, credentials, wallet, ai)
+    /controllers    # Lógica de endpoints
+    /middlewares    # Autenticación, validación, logging
+  /services         # Integraciones externas (KYC, pagos, FX, blockchain)
+  /models           # Modelos de base de datos (User, Credential, Wallet)
+  /db               # Configuración y migraciones de PostgreSQL
+  /config           # Variables de entorno, claves API
+  /utils            # Funciones auxiliares (hashing, cifrado)
+  server.ts
+Packages compartidos
+/ui → Botones, inputs, modales, loaders con estilo premium tipo Revolut.
+
+/utils → Validaciones, formateo de fechas/números, manejo de errores.
+
+/types → Interfaces y tipos para sincronizar frontend y backend.
+
+/config → Constantes globales (colores, breakpoints, endpoints).
+
+Buenas prácticas desde el día 1
+Convención de commits: usar Conventional Commits (feat:, fix:, chore:).
+
+Lint + Prettier: formateo y estilo consistente.
+
+Testing: Jest para backend y React Testing Library para frontend.
+
+CI/CD: pipeline mínimo para correr tests y lint antes de mergear.
+
+.env por entorno: .env.development, .env.staging, .env.production.
