@@ -1,0 +1,76 @@
+## Arquitectura técnica (MVP CATE)
+
+**Flujo general:**
+1. **Frontend (React + Next.js)**  
+   - UI web y móvil (PWA)  
+   - Conexión a APIs vía HTTPS  
+   - Integración con Web3Modal para conexión de wallet  
+   - Internacionalización (i18n) para varios idiomas  
+
+2. **Backend (Node.js + Express)**  
+   - API REST para operaciones CRUD  
+   - WebSocket para notificaciones en tiempo real (pagos, validaciones)  
+   - Integración con servicios externos (KYC, universidades, blockchain)  
+   - Autenticación JWT + OAuth2  
+
+3. **Base de datos**  
+   - **PostgreSQL**: usuarios, credenciales, transacciones, planes de suscripción  
+   - **MongoDB**: perfiles dinámicos, logs, historial de validaciones  
+
+4. **Blockchain Layer**  
+   - **Polygon ID** para emisión/verificación de credenciales (VC)  
+   - **Smart Contracts en Solidity** para acuerdos laborales y pagos condicionados  
+   - **Stablecoins (USDC/cUSD)** para pagos y remesas  
+
+5. **Integraciones externas**  
+   - **KYC**: Onfido / Sumsub  
+   - **Pagos**: Bitso / Transak (on/off ramp)  
+   - **Certificaciones**: APIs de universidades, plataformas de cursos  
+   - **Email/SMS**: SendGrid / Twilio  
+
+6. **Infraestructura**  
+   - AWS (EC2, RDS, S3, Cognito, CloudFront)  
+   - Vercel para despliegue del frontend  
+   - GitHub Actions para CI/CD  
+
+---
+
+## 📋 Backlog inicial (MVP)
+
+**Sprint 1 – Fundamentos**
+- [ ] Configurar repositorios (frontend, backend, smart contracts)  
+- [ ] Configurar CI/CD con GitHub Actions  
+- [ ] Configurar entornos en AWS y Vercel  
+- [ ] Definir esquema de base de datos en PostgreSQL y MongoDB  
+
+**Sprint 2 – Autenticación y roles**
+- [ ] Implementar registro/login con email y teléfono  
+- [ ] Integrar verificación KYC  
+- [ ] Crear sistema de roles (talento, empresa, ONG, admin)  
+
+**Sprint 3 – Gestión de credenciales**
+- [ ] Módulo de carga de documentos  
+- [ ] Validación manual y automática vía API  
+- [ ] Emisión de Verifiable Credentials en Polygon ID  
+
+**Sprint 4 – Wallet y pagos**
+- [ ] Integrar Web3Modal y conexión de wallet  
+- [ ] Recepción de pagos en stablecoins  
+- [ ] Conversión a fiat vía Bitso/Transak  
+
+**Sprint 5 – Matching básico**
+- [ ] Algoritmo inicial de matching por competencias  
+- [ ] Panel para empresas con filtros  
+- [ ] Listado de vacantes para talento  
+
+**Sprint 6 – Panel de administración**
+- [ ] Gestión de usuarios y credenciales  
+- [ ] Reportes básicos de actividad  
+- [ ] Control de planes y facturación  
+
+**Sprint 7 – QA y lanzamiento beta**
+- [ ] Pruebas unitarias y de integración  
+- [ ] Auditoría de seguridad  
+- [ ] Beta cerrada con usuarios reales  
+
+---
