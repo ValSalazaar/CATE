@@ -107,7 +107,95 @@ CAPA DE PAGOS Y REMESAS
  ├─ Wallet CATE
  └─ Retiros, pagos y remesas
 
-CAPA DE IMPACTO SOCIAL
- ├─ Fundación CATE
- ├─ Becas y capacitación
- └─ Métricas de impacto
+AArquitectura modular:
+
+1. Capa de Activos Digitales (Stablecoins)
+Objetivo: soportar múltiples stablecoins y redes.
+
+Diseño:
+
+Módulo AssetRegistry en backend que define:
+
+ID del activo (ej. USDC-ETH, USDC-SOL, USDT-TRON, DAI-ETH, BRZ-POLYGON).
+
+Metadatos: red, contrato, decimales, proveedor de liquidez.
+
+Estado: activo/inactivo.
+
+Smart contracts o APIs que interactúan con cada red según el activo.
+
+Beneficio: añadir una nueva stablecoin es registrar su metadata y conector, no reescribir lógica.
+
+2. Capa de Liquidez Global
+Proveedor principal: Circle (USDC, EURC) para liquidez regulada y APIs de pagos.
+
+Secundarios: Stellar, Ethereum, Polygon, Tron, según disponibilidad de cada stablecoin.
+
+Función: mover valor entre países y rails con baja fricción.
+
+3. Capa de Liquidación y FX
+Rail principal: Stellar (por velocidad y costo).
+
+Alternativas: Lightning Network (BTC), Polygon PoS, Solana.
+
+Función:
+
+Cambiar entre stablecoins (ej. USDC→USDT) o monedas fiat.
+
+Ejecutar FX inteligente (órdenes limit/stop, forwards).
+
+Usar oráculos (Chainlink, Kaiko) para tasas en tiempo real.
+
+4. Capa de On/Off‑Ramp Local
+Objetivo: conectar con bancos y métodos de pago locales.
+
+Diseño:
+
+Módulo BankAdapter por país:
+
+SPEI (México), PIX (Brasil), ACH (Colombia), CBU (Argentina), etc.
+
+API REST o ISO 20022 según banco.
+
+Soporte para múltiples bancos por país.
+
+Integración con exchanges locales (Bitso, Ripio, MercadoPago) como rampas adicionales.
+
+5. Capa de Core CATE Pay
+Servicios:
+
+Custodia (hot wallets multi‑activo).
+
+Ledger interno multi‑moneda.
+
+Motor de órdenes FX.
+
+Gestión de alertas y notificaciones.
+
+KYC/AML centralizado.
+
+API pública para que bancos, fintechs y ONGs se conecten.
+
+-Flujo de ejemplo: Pago multi‑stablecoin a banco local
+Usuario en CATE Pay tiene saldo en USDT‑TRON.
+
+Elige enviar a cuenta bancaria en México (MXN).
+
+Core CATE Pay:
+
+Convierte USDT‑TRON → USDC‑Stellar vía módulo FX.
+
+Envía USDC‑Stellar a anchor local (Bitso).
+
+Anchor liquida en MXN vía SPEI al banco destino.
+
+Todo el flujo es trazable y auditable.
+
+-Ventajas de este diseño
+Escalable: añadir un nuevo banco o stablecoin es un módulo más, no un rediseño.
+
+Resiliente: si un rail o proveedor falla, hay rutas alternativas.
+
+Regulatorio‑friendly: puedes aislar la capa de custodia y cumplir licencias locales.
+
+Interoperable: preparado para CBDCs cuando lleguen.
