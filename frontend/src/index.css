@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos globales */
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply font-sans bg-slate-50 text-slate-900 antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Componentes base */
+.card {
+  @apply bg-white rounded-2xl shadow-card p-4 md:p-6 transition-all duration-200;
+}
+
+.card:hover {
+  @apply shadow-card-hover;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-xl px-4 py-3 font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-primary-700 active:bg-primary-800 focus:ring-primary-500;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-white hover:bg-secondary-600 active:bg-secondary-700 focus:ring-secondary-500;
+}
+
+.btn-accent {
+  @apply bg-accent text-white hover:bg-accent-600 active:bg-accent-700 focus:ring-accent-500;
+}
+
+.btn-ghost {
+  @apply bg-slate-100 text-slate-800 hover:bg-slate-200 active:bg-slate-300 focus:ring-slate-500;
+}
+
+.btn-success {
+  @apply bg-success-500 text-white hover:bg-success-600 active:bg-success-700 focus:ring-success-500;
+}
+
+.btn-warning {
+  @apply bg-warning-500 text-white hover:bg-warning-600 active:bg-warning-700 focus:ring-warning-500;
+}
+
+.btn-error {
+  @apply bg-error-500 text-white hover:bg-error-600 active:bg-error-700 focus:ring-error-500;
+}
+
+.badge {
+  @apply inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-xs font-medium;
+}
+
+.badge-primary {
+  @apply bg-primary-100 text-primary-700;
+}
+
+.badge-accent {
+  @apply bg-accent-100 text-accent-700;
+}
+
+.badge-secondary {
+  @apply bg-secondary-100 text-secondary-700;
+}
+
+.badge-success {
+  @apply bg-success-100 text-success-700;
+}
+
+.badge-warning {
+  @apply bg-warning-100 text-warning-700;
+}
+
+.badge-error {
+  @apply bg-error-100 text-error-700;
+}
+
+/* Animaciones personalizadas */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
+}
+
+/* Utilidades para mobile-first */
+.mobile-only {
+  @apply block md:hidden;
+}
+
+.desktop-only {
+  @apply hidden md:block;
+}
+
+/* Neutral colors */
+.bg-neutral-light {
+  @apply bg-neutral-light;
+}
+
+.text-neutral-dark {
+  @apply text-neutral-dark;
+}
+
+.border-neutral-light {
+  @apply border-neutral-light;
+}
+
+/* Gradientes personalizados */
+.gradient-primary {
+  background: linear-gradient(135deg, #0F172A 0%, #1e293b 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #E6B800 0%, #fbbf24 100%);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+
+/* Efectos de glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Estados de carga */
+.loading {
+  @apply animate-pulse bg-slate-200;
+}
+
+/* Focus states mejorados */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+}
+
+/* Transiciones suaves */
+.transition-smooth {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Responsive text */
+.text-responsive {
+  @apply text-sm md:text-base lg:text-lg;
+}
+
+/* Safe area para dispositivos móviles */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Utilidades para dark mode (futuro) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

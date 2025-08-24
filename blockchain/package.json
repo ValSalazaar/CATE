@@ -1,0 +1,36 @@
+{
+  "name": "cate-blockchain",
+  "version": "1.0.0",
+  "description": "CATE Verifiable Credentials Smart Contracts",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:mumbai": "hardhat run scripts/deploy.js --network mumbai",
+    "deploy:goerli": "hardhat run scripts/deploy.js --network goerli",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "node": "hardhat node",
+    "clean": "hardhat clean",
+    "verify:mumbai": "hardhat verify --network mumbai",
+    "verify:goerli": "hardhat verify --network goerli",
+    "verify:sepolia": "hardhat verify --network sepolia",
+    "gas": "REPORT_GAS=true hardhat test",
+    "coverage": "hardhat coverage"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "polygon",
+    "verifiable-credentials",
+    "solidity",
+    "hardhat"
+  ],
+  "author": "CATE Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "dotenv": "^16.3.1",
+    "hardhat": "^2.19.2"
+  }
+}
